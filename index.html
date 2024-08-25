@@ -10,32 +10,28 @@
                 box-sizing: border-box;
                 margin: 0;
                 padding: 0;
+                font-family: cursive;
             }
 
             body
             {
-                height: 100vh;
-                width: 100vw;
                 display: flex;
-                justify-content: center;
+                flex-direction: column;
                 align-items: center;
+                gap: 9rem;
                 background-color: black;
             }
 
-            section
+            .section-01, .section-02
             {
-                height: 90%;
-                width: 80%;
-                position: relative;
+                padding: 1rem;
             }
 
-            img
+            .section-01 img
             {
-                position: absolute;
-                top: 5%;
-                left: 30%;
-                animation: spinner 1s linear infinite both;
-                transform-origin: 50% 67%;
+                max-width: 25rem;
+                animation: spinner 0.8s linear infinite both;
+                transform-origin: 51% 62%;
             }
 
             @keyframes spinner
@@ -51,60 +47,23 @@
                 }
             }
 
-            .btn1, .btn2, .btn3, .btn4
+            .section-02
+            {
+                display: flex;
+                gap: 1rem;
+                flex-wrap: wrap;
+                align-content: space-evenly;
+            }
+
+            .button-01, .button-02, .button-03, .button-04, .button-05
             {
                 border: none;
                 padding: 0.5rem 2rem;
                 font-weight: bold;
-                font-family: cursive;
                 background: conic-gradient(from 0deg at top left, rgb(135, 206, 235), rgb(123, 104, 238), rgb(255, 20, 147), rgb(135, 206, 235));
-                position: relative;
-                top: 90%;
+                cursor: pointer;
                 z-index: 0;
-            }
-
-            .btn1
-            {
-                left: 25%;
-            }
-
-            .btn2
-            {
-                left: 30%;
-            }
-
-            .btn3
-            {
-                left: 35%;
-            }
-
-            .btn4
-            {
-                left: 40%;
-            }
-
-            .btn1::after,
-            .btn2::after,
-            .btn3::after,
-            .btn4::after
-            {
-                content: '';
-                height: 100%;
-                width: 0%;
-                background: conic-gradient(from 0deg at bottom right, rgb(220, 20, 60), rgb(255, 20, 147), rgb(30, 140, 255), rgb(220, 20, 60));
-                position: absolute;
-                top: 0%;
-                left: 0%;
-                transition: all 0.5s ease-in-out 0s;
-                z-index: -1;
-            }
-
-            .btn1:hover::after,
-            .btn2:hover::after,
-            .btn3:hover::after,
-            .btn4:hover::after
-            {
-                width: 100%;
+                position: relative;
             }
 
             @property --angle
@@ -114,22 +73,37 @@
                 inherits: false;
             }
 
-            .btn1::before,
-            .btn2::before,
-            .btn3::before,
-            .btn4::before
+            .button-01::before, .button-02::before, .button-03::before, .button-04::before, .button-05::before
             {
                 content: '';
                 height: 100%;
                 width: 100%;
-                background-image: conic-gradient(from var(--angle) at top, transparent 90%, rgb(135, 206, 235));
+                background-image: conic-gradient(from var(--angle) at top left, transparent 50%, #5d9fff, #b8dcff, #6bbbff, #5d9fff);
                 position: absolute;
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
+                z-index: -2;
+                padding: 0.15rem;
+                animation: border-animation 5s ease-in-out infinite both;
+            }
+
+            .button-01::after, .button-02::after, .button-03::after, .button-04::after, .button-05::after
+            {
+                content: '';
+                height: 100%;
+                width: 0%;
+                background-image: conic-gradient(from 0deg at bottom right, #2980b9, #6dd5fa, #ffffff);
+                position: absolute;
+                top: 0%;
+                left: 0%;
                 z-index: -1;
-                padding: 3px;
-                animation: border-animation 3s linear infinite both;
+                transition: all 500ms ease-in-out;
+            }
+
+            .button-01:hover::after, .button-02:hover::after, .button-03:hover::after, .button-04:hover::after, .button-05:hover::after
+            {
+                width: 100%;
             }
 
             @keyframes border-animation
@@ -144,26 +118,39 @@
                     --angle: 360deg;
                 }
             }
+
+            @media (max-width: 500px)
+            {
+                .section-01 img
+                {
+                    max-width: 75vw;
+                }   
+            }
         </style>
     </head>
     <body>
-        <section>
-            <img src="fidget-spinner-48323.png" alt="A Spinner">
-            <button class="btn1"> Spin </button>
-            <button class="btn2"> Pause </button>
-            <button class="btn3"> Fast </button>
-            <button class="btn4"> Slow </button>
+        <section class="section-01">
+            <img src="3-wing-fan-led-bulb.jpg" alt="A Fan">
+        </section>
+        <section class="section-02">
+            <button class="button-01"> Spin </button>
+            <button class="button-02"> Pause </button>
+            <button class="button-03"> Fast </button>
+            <button class="button-04"> Slow </button>
+            <button class="button-05"> Normal </button>
         </section>
         <script>
             let element = document.getElementsByTagName('img')[0];
-            let spin_button = document.getElementsByClassName('btn1')[0];
-            let pause_button = document.getElementsByClassName('btn2')[0];
-            let fast_button = document.getElementsByClassName('btn3')[0];
-            let slow_button = document.getElementsByClassName('btn4')[0];
+            let spin_button = document.getElementsByClassName('button-01')[0];
+            let pause_button = document.getElementsByClassName('button-02')[0];
+            let fast_button = document.getElementsByClassName('button-03')[0];
+            let slow_button = document.getElementsByClassName('button-04')[0];
+            let normal_button = document.getElementsByClassName('button-05')[0];
             spin_button.addEventListener('click', () => element.style.animationPlayState="running")
             pause_button.addEventListener('click', () => element.style.animationPlayState="paused")
-            fast_button.addEventListener('click', () => element.style.animationDuration="0.3s")
-            slow_button.addEventListener('click', () => element.style.animationDuration="5s")
+            fast_button.addEventListener('click', () => element.style.animationDuration="0.2s")
+            slow_button.addEventListener('click', () => element.style.animationDuration="1.5s")
+            normal_button.addEventListener('click', () => element.style.animationDuration="0.8s");
         </script>
     </body>
 </html>
